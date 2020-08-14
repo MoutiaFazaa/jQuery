@@ -1,8 +1,8 @@
 var player1=prompt("Player One: Enter your name, you will be blue");
-var player1Color="rgb(86,151,255)";
+var player1Color='rgb(86, 151, 255)';
 
 var player2=prompt("Player Two: Enter your name, you will be red");
-var player2Color="rgb(237,45,73)";
+var player2Color='rgb(237, 45, 73)';
 
 var game_on=true;
 var table= $("table tr");
@@ -98,3 +98,29 @@ function diagonalWinCheck() {
     }
   
   }
+
+//start with player 1
+var currentPlayer=1;
+var currentName=player1;
+var currentColor=player1Color;
+ $("h3").text(player1+" it is your turn, pick a column to drop in!")
+ $('.board button').on("click", function(){
+     var col = $(this).closest('td').index();
+     var bottomAvail=checkBottom(col);
+     changeColor(bottomAvail,col,currentColor);
+     if(HorizontalWinCheck() || VerticalWinCheck()|| diagonalWinCheck()){
+         $('h1').text(currentName+" you have won!");
+         $('h3').fadeOut('fast');
+     }
+     currentPlayer =currentPlayer* -1;
+
+     if(currentPlayer===1){
+         currentName=player1;
+         $('h3').text(currentName+" it is your turn.");
+         currentColor=player1Color;
+     }else{
+         currentName=player2;
+         $('h3').text(currentName+" it is your turn.");
+         currentColor=player2Color;
+     }
+ })
